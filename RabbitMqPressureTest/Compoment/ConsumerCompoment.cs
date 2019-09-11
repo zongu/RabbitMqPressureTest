@@ -8,7 +8,7 @@ namespace RabbitMqPressureTest.Compoment
     {
         public ConsumerCompoment()
         {
-            RabbitMqFactory.Start(ConfigHelper.RabbitMqUri);
+            RabbitMqFactory.Start();
 
             var consumer = new RabbitMqConsumer(
                 ConfigHelper.SubQueueNames,

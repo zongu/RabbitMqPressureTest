@@ -33,10 +33,12 @@ namespace RabbitMqPressureTest.Applibs
             return models[topicName];
         }
 
-        public static void Start(string hostUri)
+        public static void Start()
         {
             factory = new ConnectionFactory()
             {
+                UserName = ConfigHelper.RabbitUserName,
+                Password = ConfigHelper.RabbitPassword,
                 AutomaticRecoveryEnabled = true,
                 NetworkRecoveryInterval = TimeSpan.FromSeconds(5)
             };

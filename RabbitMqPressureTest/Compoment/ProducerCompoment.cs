@@ -14,7 +14,7 @@ namespace RabbitMqPressureTest.Compoment
 
         public ProducerCompoment()
         {
-            RabbitMqFactory.Start(ConfigHelper.RabbitMqUri);
+            RabbitMqFactory.Start();
             RabbitMqFactory.GetChannel(ConfigHelper.QueueId);
             this.tr = new Timer();
             this.tr.Interval = ConfigHelper.ProducerInterval * 1000;

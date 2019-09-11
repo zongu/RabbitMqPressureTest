@@ -6,6 +6,10 @@ namespace RabbitMqPressureTest.Applibs
     using System.Configuration;
     internal static class ConfigHelper
     {
+        public static readonly string RabbitUserName = ConfigurationManager.AppSettings["RabbitUserName"].ToString();
+
+        public static readonly string RabbitPassword = ConfigurationManager.AppSettings["RabbitPassword"].ToString();
+
         public static readonly string RabbitMqUri = ConfigurationManager.AppSettings["RabbitMqUri"].ToString();
 
         public static readonly IEnumerable<string> SubQueueNames = ConfigurationManager.AppSettings["SubQueueNames"].ToString().Split(',');
