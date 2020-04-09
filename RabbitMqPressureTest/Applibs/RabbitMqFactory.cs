@@ -2,7 +2,7 @@
 namespace RabbitMqPressureTest.Applibs
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.Concurrent;
     using RabbitMQ.Client;
 
     internal static class RabbitMqFactory
@@ -11,7 +11,7 @@ namespace RabbitMqPressureTest.Applibs
 
         private static IConnection connection;
 
-        private static Dictionary<string, IModel> models = new Dictionary<string, IModel>();
+        private static ConcurrentDictionary<string, IModel> models = new ConcurrentDictionary<string, IModel>();
 
         private static bool TryAddModel(string topicName)
         {
@@ -19,7 +19,7 @@ namespace RabbitMqPressureTest.Applibs
             {
                 var chennel = connection.CreateModel();
                 chennel.ExchangeDeclare($"Exchange-{ExchangeType.Direct}-{topicName}", ExchangeType.Direct);
-                models.Add(topicName, chennel);
+                models.TryAdd(topicName, chennel);
 
                 return true;
             }
@@ -54,7 +54,7 @@ namespace RabbitMqPressureTest.Applibs
                 model.Value.Close();
             }
 
-            models = new Dictionary<string, IModel>();
+            models = new ConcurrentDictionary<string, IModel>();
             connection.Abort();
             connection.Close();
             factory = null;
